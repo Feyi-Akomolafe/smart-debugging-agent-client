@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debug History</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Debug History</h1>
+      <a href="/">Back to Agent</a>
+    </header>
+
+    <section class="card">
+      {% if history %}
+        {% for item in history %}
+          <div class="history-item">
+            <strong>{{ item.created_at }}</strong>
+            <p><b>Error:</b> {{ item.error_message }}</p>
+            <p><b>Root Cause:</b> {{ item.probable_root_cause }}</p>
+            <p><b>Confidence:</b> {{ item.confidence }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No debugging history yet.</p>
+      {% endif %}
+    </section>
+  </main>
+</body>
+</html>

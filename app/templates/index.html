@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Debugging Agent</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Smart Debugging Agent</h1>
+      <p>Paste your error, stack trace, and code context. The agent explains the likely cause and suggests a fix.</p>
+      <a href="/history">View Debug History</a>
+    </header>
+
+    <section class="card">
+      <form method="POST">
+        <label>Programming Language</label>
+        <input name="language" placeholder="Example: JavaScript, Python, Java, C++">
+
+        <label>Error Message</label>
+        <textarea name="error_message" required placeholder="Paste the main error message here"></textarea>
+
+        <label>Stack Trace</label>
+        <textarea name="stack_trace" placeholder="Paste stack trace here"></textarea>
+
+        <label>Code Snippet</label>
+        <textarea name="code_snippet" placeholder="Paste the relevant code causing the issue"></textarea>
+
+        <label>Command Used</label>
+        <input name="command_used" placeholder="Example: npm start, python app.py, node server.js">
+
+        <label>Expected Behavior</label>
+        <textarea name="expected_behavior" placeholder="What should have happened?"></textarea>
+
+        <label>Actual Behavior</label>
+        <textarea name="actual_behavior" placeholder="What actually happened?"></textarea>
+
+        <button type="submit">Analyze Issue</button>
+      </form>
+    </section>
+
+    {% if result %}
+    <section class="card result">
+      <h2>Debugging Report</h2>
+
+      <div class="badge">Confidence: {{ result.confidence }}</div>
+      <div class="badge">{{ "AI Enhanced" if result.used_ai else "Rule-Based Mode" }}</div>
+
+      <h3>Summary</h3>
+      <p>{{ result.summary }}</p>
+
+      <h3>Probable Root Cause</h3>
+      <p>{{ result.probable_root_cause }}</p>
+
+      <h3>Explanation</h3>
+      <p>{{ result.explanation }}</p>
+
+      <h3>Impacted Location</h3>
+      <p>{{ result.impacted_location }}</p>
+
+      <h3>Suggested Fix</h3>
+      <pre>{{ result.suggested_fix }}</pre>
+
+      <h3>Test Steps</h3>
+      <ul>
+        {% for step in result.test_steps %}
+          <li>{{ step }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+  </main>
+</body>
+</html>
