@@ -43,7 +43,3 @@ Then add:
 ```text
 OPENAI_API_KEY=your_key_here
 ```
-
-## Resume Bullet
-
-> Developed a client-facing Smart Debugging Agent that analyzes software errors, stack traces, and project context to identify root causes, generate fix suggestions, and store debugging history through a web-based interface.
